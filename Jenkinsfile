@@ -4,7 +4,7 @@ pipeline
 
     tools
     {
-        maven 'maven_3.9.7'
+        maven 'Maven_3.9.7'
     }
 
     stages
@@ -16,7 +16,6 @@ pipeline
                 git branch: 'feature', url: 'https://github.com/Yaminiraik/maven-web-application.git'
             }
         }
-    }
 
         stage('Build Project')
         {
@@ -25,4 +24,5 @@ pipeline
                 sh 'mvn clean package'
             }
         }
+    }    
 }

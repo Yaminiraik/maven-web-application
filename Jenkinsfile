@@ -9,7 +9,7 @@ pipeline
 
     environment
     {
-        buildNumber = "${BUILD_NUMBER}"
+        BUILD_NUM = "${BUILD_NUMBER}"
     }
 
     stages
@@ -34,7 +34,7 @@ pipeline
         {
             steps()
             {
-                sh 'docker build -t yaminiraik/dockerpipeline:${buildNumber} .'
+                sh 'docker build -t yaminiraik/dockerpipeline:${BUILD_NUM} .'
             }
         }
 
@@ -44,9 +44,9 @@ pipeline
             {
                 withCredentials([string(credentialsId: 'Docker_Hub_Password', variable: 'Docker_Hub_Password')]) 
                 {
-                    sh 'docker login -u yaminiraik -p ${Docker_Hub_password}'
+                    sh 'docker login -u yaminiraik -p ${Docker_Hub_Password}'
                 }   
-                sh 'docker push yaminiraik/dockerpipeline:${buildNumber}'
+                sh 'docker push yaminiraik/dockerpipeline:${BUILD_NUM}'
             }
         }
 
@@ -54,7 +54,7 @@ pipeline
         {
             steps()
             {
-                sh 'docker rmi -f yaminiraik/pipeline:${buildNumber}'
+                sh 'docker rmi -f yaminiraik/pipeline:${BUILD_NUM}'
             }
         }
     }    

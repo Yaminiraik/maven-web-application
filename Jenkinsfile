@@ -34,7 +34,7 @@ pipeline
         {
             steps()
             {
-                sh 'docker build -t yaminiraik/dockerpipeline:${buildNumber}'
+                sh 'docker build -t yaminiraik/dockerpipeline:${buildNumber} .'
             }
         }
 

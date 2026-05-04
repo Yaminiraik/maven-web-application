@@ -57,5 +57,18 @@ pipeline
                 sh 'docker rmi -f yaminiraik/pipeline:${BUILD_NUM}'
             }
         }
+
+        stage('Deploy Application to Docker Deployment Server')
+        {
+            steps()
+            {
+                sshagent(['DeploymentServer_SSH']) 
+                {
+                    sh "ssh -o StrictHostKeyChecking=no ubuntu@54.82.191.48 docker rm -f maven-web-application || true"
+                    sh "ssh -o StrictHostKeyChecking=no ubuntu@54.82.191.48 docker run -d --name maven-web-application -p 8080:8080 yaminiraik/dockerpipeline:${BUILD_NUM}"
+                }
+
+            }
+        }
     }    
 }
